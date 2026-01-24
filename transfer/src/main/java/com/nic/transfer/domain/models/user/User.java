@@ -5,14 +5,13 @@ import com.nic.transfer.domain.exceptions.DomainException;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-public class User {
+public class User extends AggregateRoot {
     private UUID id;
     private UserType userType;
     private BigDecimal balance;
     private Email email;
     private Cpf cpf;
     private String name;
-    private String password;
 
     public void validate(BigDecimal amount) {
         if (this.userType == UserType.MERCHANT) {
@@ -20,7 +19,7 @@ public class User {
         }
 
         if (this.balance.compareTo(amount) < 0) {
-            throw new DomainException("insufficient funds.");
+            throw new DomainException("Insufficient funds.");
         }
     }
 }
