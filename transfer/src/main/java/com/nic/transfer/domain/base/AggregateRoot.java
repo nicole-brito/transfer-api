@@ -6,20 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AggregateRoot {
-    private final List<DomainEvent> uncommitedEvents = new ArrayList<>();
+    private final List<DomainEvent> uncommittedEvents = new ArrayList<>();
 
     private Long version = -1L;
 
     protected void raiseEvent(DomainEvent event) {
-        this.uncommitedEvents.add(event);
+        this.uncommittedEvents.add(event);
+
+        this.apply(event);
     }
 
+    protected abstract void apply(DomainEvent event);
+
     public List<DomainEvent> getUncommitedEvents() {
-        return uncommitedEvents;
+        return uncommittedEvents;
     }
 
     public void clearEvents() {
-        this.uncommitedEvents.clear();
+        this.uncommittedEvents.clear();
     }
 
     public Long getVersion() {
