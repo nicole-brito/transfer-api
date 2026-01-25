@@ -5,6 +5,7 @@ import com.nic.transfer.domain.models.Transfer;
 import com.nic.transfer.domain.models.user.User;
 import com.nic.transfer.domain.ports.out.EventPublisher;
 import com.nic.transfer.domain.ports.out.EventStorePort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

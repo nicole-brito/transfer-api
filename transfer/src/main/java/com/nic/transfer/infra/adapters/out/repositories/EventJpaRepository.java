@@ -1,6 +1,6 @@
-package com.nic.transfer.adapters.out.repositories;
+package com.nic.transfer.infra.adapters.out.repositories;
 
-import com.nic.transfer.adapters.out.EventEntity;
+import com.nic.transfer.infra.adapters.out.EventEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
