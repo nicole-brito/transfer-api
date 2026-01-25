@@ -1,5 +1,6 @@
-package com.nic.transfer.adapters.out;
+package com.nic.transfer.infra;
 
+import com.nic.transfer.adapters.out.EventEntity;
 import com.nic.transfer.adapters.out.repositories.EventJpaRepository;
 import com.nic.transfer.domain.events.DomainEvent;
 import com.nic.transfer.domain.exceptions.DomainException;
