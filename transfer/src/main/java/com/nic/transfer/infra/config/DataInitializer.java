@@ -1,4 +1,4 @@
-package com.nic.transfer.infra;
+package com.nic.transfer.infra.config;
 
 import com.nic.transfer.application.commands.CreateUserCommand;
 import com.nic.transfer.application.handlers.UserHandler;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Component
+//@Component
 public class DataInitializer implements CommandLineRunner {
 
     private final UserHandler userHandler;
