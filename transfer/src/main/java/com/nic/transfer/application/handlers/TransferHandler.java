@@ -9,8 +9,6 @@ import com.nic.transfer.domain.ports.out.EventStorePort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 @Service
 public class TransferHandler {
 
@@ -47,8 +45,5 @@ public class TransferHandler {
 
         eventStore.saveEvents(transfer.getId(), transfer.getUncommitedEvents(), -1L);
 
-        payer.clearEvents();
-        payee.clearEvents();
-        transfer.clearEvents();
     }
 }
