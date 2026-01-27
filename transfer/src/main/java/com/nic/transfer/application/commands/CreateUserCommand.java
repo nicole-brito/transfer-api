@@ -11,5 +11,4 @@ public record CreateUserCommand(
         String password,
         UserType userType,
         BigDecimal balance
-) {
-}
+) {}

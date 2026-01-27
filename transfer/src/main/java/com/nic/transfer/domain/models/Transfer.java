@@ -17,7 +17,21 @@ public class Transfer extends AggregateRoot {
     private UUID payeeId;
     private Instant occurredOn;
 
-    private final List<Object> uncommittedEvents = new ArrayList<>();
+    public Transfer(UUID id, UUID payerId, UUID payeeId) {
+        this.id = id;
+        this.payerId = payerId;
+        this.payeeId = payeeId;
+    }
+
+    public Transfer() {
+
+    }
+
+
+    public static Transfer create(UUID id, UUID payerId, UUID payeeId, BigDecimal amount) {
+            if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+                throw new DomainException("Value must be positive.");
+            }
 
     private void validateTransaction(BigDecimal value) {
         if (value.compareTo(BigDecimal.ZERO) <= 0) {
@@ -41,5 +55,9 @@ public class Transfer extends AggregateRoot {
         this.occurredOn = event.occurredOn();
 
         this.uncommittedEvents.add(event);
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }

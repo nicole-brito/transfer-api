@@ -1,4 +1,4 @@
-//package com.nic.transfer.adapters.out;
+//package com.nic.transfer.infra.adapters.out;
 //
 //import org.springframework.cloud.openfeign.FeignClient;
 //
