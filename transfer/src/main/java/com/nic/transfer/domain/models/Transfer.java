@@ -1,63 +1,54 @@
 package com.nic.transfer.domain.models;
 
 import com.nic.transfer.domain.base.AggregateRoot;
+import com.nic.transfer.domain.events.DomainEvent;
 import com.nic.transfer.domain.events.TransferCreatedEvent;
 import com.nic.transfer.domain.exceptions.DomainException;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class Transfer extends AggregateRoot {
     private UUID id;
-    private BigDecimal value;
+    private BigDecimal amount;
     private UUID payerId;
     private UUID payeeId;
     private Instant occurredOn;
 
-    public Transfer(UUID id, UUID payerId, UUID payeeId) {
-        this.id = id;
-        this.payerId = payerId;
-        this.payeeId = payeeId;
-    }
-
-    public Transfer() {
-
-    }
-
 
     public static Transfer create(UUID id, UUID payerId, UUID payeeId, BigDecimal amount) {
-            if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-                throw new DomainException("Value must be positive.");
-            }
-
-    private void validateTransaction(BigDecimal value) {
-        if (value.compareTo(BigDecimal.ZERO) <= 0) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new DomainException("Value must be positive.");
         }
-    }
-
-    public Transfer create(UUID id, BigDecimal value, UUID payerId, UUID payeeId, Instant occurredOn) {
-        this.validateTransaction(value);
 
         Transfer transfer = new Transfer();
-        transfer.apply(new TransferCreatedEvent(id, value, payerId,payeeId, occurredOn));
+
+        transfer.raiseEvent(new TransferCreatedEvent(
+                id,
+                amount,
+                payerId,
+                payeeId,
+                Instant.now()
+        ));
+
         return transfer;
     }
 
-    private void apply(TransferCreatedEvent event) {
+    @Override
+    protected void apply(DomainEvent event) {
+        if (event instanceof TransferCreatedEvent e) {handle(e);}
+    }
+
+    private void handle(TransferCreatedEvent event) {
         this.id = event.id();
-        this.value = event.value();
+        this.amount = event.amount();
         this.payerId = event.payerId();
         this.payeeId = event.payeeId();
         this.occurredOn = event.occurredOn();
-
-        this.uncommittedEvents.add(event);
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public UUID getId() {
+        return id;
     }
 }

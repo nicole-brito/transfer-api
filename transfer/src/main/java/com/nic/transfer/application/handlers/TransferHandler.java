@@ -9,6 +9,8 @@ import com.nic.transfer.domain.ports.out.EventStorePort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 public class TransferHandler {
 
@@ -39,11 +41,14 @@ public class TransferHandler {
                 command.amount()
         );
 
-        eventStore.saveEvents(payer.getId(), payer.getUncommitedEvents(), payer.getVersion());
+        eventStore.saveEvents(payer.getId(), payer.getUncommittedEvents(), payer.getVersion());
 
-        eventStore.saveEvents(payee.getId(), payee.getUncommitedEvents(), payee.getVersion());
+        eventStore.saveEvents(payee.getId(), payee.getUncommittedEvents(), payee.getVersion());
 
-        eventStore.saveEvents(transfer.getId(), transfer.getUncommitedEvents(), -1L);
+        eventStore.saveEvents(transfer.getId(), transfer.getUncommittedEvents(), -1L);
 
+        payer.clearEvents();
+        payee.clearEvents();
+        transfer.clearEvents();
     }
 }

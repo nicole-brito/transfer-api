@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public record TransferCreatedEvent(
         UUID id,
-        BigDecimal value,
+        BigDecimal amount,
         UUID payerId,
         UUID payeeId,
         Instant occurredOn

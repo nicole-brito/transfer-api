@@ -30,7 +30,7 @@ public class UserHandler {
                 command.balance()
         );
 
-        eventStore.saveEvents(user.getId(), user.getUncommitedEvents(), -1L);
+        eventStore.saveEvents(user.getId(), user.getUncommittedEvents(), -1L);
 
         user.clearEvents();
 
