@@ -90,7 +90,7 @@ public class EventStoreIntegrationTest {
                 new BigDecimal("0.00"),
                 Instant.now()));
 
-        eventStore.saveEvents(payeeId, eventsPayee, -1L);
+//        eventStore.saveEvents(payeeId, eventsPayee, -1L);
 
         Mockito.when(authorizePort.isAuthorized(any(), any())).thenReturn(true);
     }
