@@ -71,4 +71,8 @@ public class User extends AggregateRoot {
     public UUID getId() {
         return id;
     }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
 }
